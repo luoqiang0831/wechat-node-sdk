@@ -54,4 +54,4 @@ $ npm run dev
 
 > 如果对您有帮助，请 Star 支持一下,你的赞赏更是我不竭的动力
 
-![赞赏一下呗](https://www.junxun365.com/upload/images/zfb_pay.jpg =100)
+![赞赏一下呗](https://www.junxun365.com/upload/images/zfb_pay.jpg =100x100)
