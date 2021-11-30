@@ -10,9 +10,9 @@ export const Wx_AccessToken_Api = 'https://api.weixin.qq.com/cgi-bin/token'
 // export const APP_SECRET = 'c6e600413b4b3b01bddc3f84c6b172ad' // 微信Secret
 
 // 商户ID
-export const MCH_ID = '1448672402'
+export const MCH_ID = 'xxxxxxx'
 // 商户支付秘钥( 微信商户平台-->账户设置-->API安全-->密钥设置)
-export const PAY_KEY = '22A1BCF02E30F1B27649EE55F043769B'
+export const PAY_KEY = 'xxxxxxxxxxxxxxxxx'
 
 // 获取User 的openid 及个人信息所需的accessToken
 export const Wx_User_AccessToken_Api =
