@@ -1,0 +1,80 @@
+{
+  "name": "wechar-nodejs-sdk",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node --experimental-modules --es-module-specifier-resolution=node app.js",
+    "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node app.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "body-parser": "^1.19.0",
+    "chalk": "^4.1.2",
+    "cheerio": "^0.22.0",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.5",
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "iconv-lite": "^0.6.3",
+    "md5": "^2.3.0",
+    "moment": "^2.29.1",
+    "mongodb": "^4.1.4",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.3",
+    "mysql": "^2.18.1",
+    "priority-async-queue": "^1.2.10",
+    "qs": "^6.10.1",
+    "request": "^2.88.2",
+    "static-favicon": "^1.0.2",
+    "xmlreader": "^0.2.3"
+  },
+  "devDependencies": {
+    "async": "^3.2.2",
+    "atob": "^2.1.2",
+    "btoa": "^1.2.1",
+    "debug": "^4.3.2",
+    "eslint": "^8.2.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-html": "^6.2.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "express-routemap": "^1.6.0",
+    "fs": "0.0.2",
+    "html-entities": "^2.3.2",
+    "mkdirp": "^1.0.4",
+    "nodemon": "^2.0.15"
+  },
+  "standard": {
+    "ignore": [
+      "/node_modules/",
+      "node_modules/",
+      "/public/",
+      "/utils/decrypt.js",
+      "/utils/md5.js",
+      "/docs/sw.js"
+    ],
+    "globals": [
+      "$"
+    ]
+  },
+  "description": "微信nodejs-sdk 包含微信支付相关等接口",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "keywords": [
+    "微信开发",
+    "微信sdk开发",
+    "获取openid",
+    "微信支付"
+  ],
+  "author": "luoqiang",
+  "license": "ISC"
+}

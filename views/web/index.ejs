@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>调试</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="微信调试页">
+  <meta name="description" content="一个微信api调试页面">
+  <link rel="shortcut icon" href="/public/favicon.png">
+  <link rel="stylesheet" href="/public/css/bootstrap.min.css-v=5.1.3.css">
+</head>
+<style>
+  .alert-primary button {
+    margin-bottom: 10px
+  }
+</style>
+
+<body>
+  <div id="main">
+    <h1 align="center"><b>
+        <!-- <%=title %> -->
+      </b></h1>
+
+    <div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" id="nick"></h5>
+          <p class="card-text" id="userInfo">
+            openid:<span id="openid"></span>
+          </p>
+          <p class="card-text" id="transNo">
+            微信订单/自定义订单:<span id="openid"></span>
+          </p>
+        </div>
+      </div>
+      <div class="alert alert-primary" role="alert">
+        <h3>获取用户信息相关</h3><br>
+        <button type="button" class="btn btn-primary" id="getOpenid1">获取openid(静默授权)</button>
+        <button type="button" class="btn btn-secondary" id="getOpenid2">获取openid(确认授权)</button>
+        <button type="button" class="btn btn-success">Success</button>
+        <button type="button" class="btn btn-danger">Danger</button>
+        <button type="button" class="btn btn-warning">Warning</button>
+        <button type="button" class="btn btn-info">Info</button>
+        <button type="button" class="btn btn-light">Light</button>
+        <button type="button" class="btn btn-dark">Dark</button>
+      </div>
+      <div class="alert alert-primary" role="alert">
+        <h3>微信支付相关</h3><br>
+        <button type="button" class="btn btn-primary" id="createPay">唤起支付</button>
+        <div id="orderInfo"></div>
+      </div>
+
+      <div class="alert alert-primary" role="alert">
+        <h3>微信消息模板推送</h3><br>
+        <form>
+          <div class="mb-3">
+            <label for="name" class="form-label">名称</label>
+            <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">模板中的标识字段</div>
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">数量</label>
+            <input type="number" class="form-control" id="num">
+          </div>
+          <button type="button" id="send" class="btn btn-primary">推送</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+  <script src="https://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+  <script src="/public/js/cookie.js"></script>
+  <script src="/public/js/tools.js"></script>
+  <script>
+    //支付调用方法
+    function onBridgeReady(appId, timeStamp, nonceStr, package, paySign, transNo) {
+      WeixinJSBridge.invoke(
+        'getBrandWCPayRequest', {
+        "appId": appId, //需要在微信绑定商户号，成功之后会生成有appid   
+        "timeStamp": timeStamp, //时间戳，自1970年以来的秒数，前端需要从后台获取该数据     
+        "nonceStr": nonceStr, //随机串，前端需要从后台获取该数据     
+        "package": package,//前端需要从后台获取该数据     
+        "signType": "MD5", //微信签名方式,默认为"MD5",也可以从后台获取
+        "paySign": paySign //微信签名，前端需要从后台获取该数据 
+      },
+        function (res) {
+          //这个步骤非常重要，调试期间会报上相应的错误信息，因为微信调试工具是无法实际支付的，并且微信上是无法调试的，只能在这里alert
+          alert(res.err_msg);
+          if (res.err_msg == "get_brand_wcpay_request:ok") {
+            $("#transNo").text(`${package}/${transNo}`)
+            //购买成功之后需要做的事...
+            setTimeout(() => {
+              queryOrderInfo(transNo)
+            }, 1000);
+            alert('支付成功');
+          } // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+        }
+      );
+    }
+
+    function queryOrderInfo(transNo) {
+      $.ajax({
+        url: '/wx/pay/queryOrder',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          transNo: transNo
+        }),
+        success(result) {
+          const data = result.data
+          if (result.errcode !== 0) return
+          var html = `<p class="">商户订单号:${data.transNo}</p>
+                        <p class="">openid:${data.openid}</p>
+                        <p class="">是否关注公众账号:${data.is_subscribe}</p>
+                        <p class="">交易状态:${data.trade_state_desc}</p>
+                        <p class="">付款银行:${data.bank_type}</p>
+                        <p class="">标价金额:${data.total_fee}</p>
+                        <p class="">支付完成时间:${data.time_end}</p>`
+
+          $("#orderInfo").html(html)
+
+        }
+      })
+    }
+  </script>
+  <script>
+    $(function () {
+
+      // 获取signtrue
+      $.ajax({
+        url: '/wx/api/signatrue',
+        method: "POST",
+        contentType: 'application/json',
+        data: JSON.stringify({
+          // url: location.href.split("#")[0]
+          url: location.origin + location.pathname
+        }),
+        success(data) {
+          wx.config({
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: data.appid, // 必填，公众号的唯一标识
+            timestamp: data.timestamp, // 必填，生成签名的时间戳
+            nonceStr: data.nonceStr, // 必填，生成签名的随机串
+            signature: data.signature,// 必填，签名
+            jsApiList: ["chooseImage"] // 必填，需要使用的JS接口列表
+          });
+        }
+      })
+
+      var code = getQueryVariable("code");
+      var openid = getCookie("openid");
+      var mode = getCookie("state");
+      var href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx92f2087d83e61374&redirect_uri=" +
+        encodeURIComponent(location.origin + location.pathname) +
+        "&response_type=code&scope=${mode}&state=${mode}#wechat_redirect"
+      if (!openid && !code) {
+        window.location.href = href.replaceAll('${mode}', 'snsapi_base')
+        return;
+      }
+
+      history.replaceState(null, '测试', location.origin + location.pathname)
+
+      function getOpenidFn(url) {
+        $.get(
+          url,
+          function (data) {
+            if (data.errcode === 0) {
+              var result = data.data
+              openid = result.openid;
+              $("#openid").text(openid)
+              // setCookie("openid", openid);
+            }
+          }
+        );
+      }
+      // 静默授权
+      $("#getOpenid1").on("click", function () {
+        getOpenidFn("/wx/user/getOpenId?code=" + code || 'akfalksdjflaksdjf')
+      })
+
+      // 确认授权
+      $("#getOpenid2").on("click", function () {
+        if (mode !== 'snsapi_userinfo') window.location.href = href.replaceAll('${mode}', 'snsapi_userinfo')
+        getOpenidFn("/wx/user/getUserInfo?code=" + code || 'akfalksdjflaksdjf')
+      })
+
+      // 唤起支付
+      $("#createPay").on("click", function () {
+        if (!openid) {
+          alert("请先获取openid")
+          return
+        }
+
+        $.ajax({
+          url: '/wx/pay/create',
+          method: "POST",
+          contentType: 'application/json',
+          data: JSON.stringify({
+            openid: openid,
+            desc: "一个测试订单",
+            orderNo: guid(),
+            amount: 0.01
+          }),
+          success(result) {
+            console.log("支付信息")
+            var data = result.data
+            if (result.errcode === 0) {
+              onBridgeReady(data.appId, data.timeStamp, data.nonceStr, data.package, data.sign, data.transNo)
+            } else {
+              console.log(data.errmsg)
+            }
+
+          }
+        })
+      })
+
+      $("#send").on("click", function () {
+        $.ajax({
+          url: '/wx/template/sendMsg',
+          method: 'post',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            openid: openid,
+            msg: {
+              name: $("#name").val(),
+              num: $("#num").val()
+            }
+          }),
+          success(result) {
+            console.log(result)
+          }
+        })
+      })
+    })
+  </script>
+</body>
+
+</html>
