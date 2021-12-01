@@ -1,3 +1,5 @@
+![logo](https://github.com/luoqiang0831/wechat-node-sdk/blob/main/public/favicon.png)
+
 # wxchat-node-sdk
 
 **微信 node-sdk**
@@ -7,7 +9,7 @@
 **源代码目录结构**
 **[地址](https://github.com/luoqiang0831/wechat-node-sdk)**
 
-<a href="#">查看文档</a>
+<a href="https://luoqiang0831.github.io/wechat-node-sdk/">查看文档</a>
 
 <!-- ![project.png](https://i.loli.net/2017/12/07/5a28ea5c3468d.png) -->
 
@@ -26,32 +28,27 @@ $ npm install
 $ npm run dev
 ```
 
-服务器启动默认端口为 3002 、启动之后就可以开启了接口服务了.
+服务器启动默认端口为 3002 、启动之后就可以开启接口服务.
 
 **目录结构**
 
-```txt
-├─ bin
-├─ config
-│  └─ dbs.js
-├─ middlewares
-├─ public
-├─ routes
-│  ├─ api
-│  └─ web
-├─ utils
-├─ views
-│  └─ web
-├─ app.js
-├─ nginx.conf
-├─ package.json
-├─ README copy.md
-├─ README.md
-├─ routers.js
-└─ TICKET.json
+```javascript
+├─ bin  // 启动文件
+├─ config   // 数据库配置文件
+├─ middlewares  // 中间件
+├─ public   // 静态资源
+├─ routes   // 路由映射文件
+│  ├─ api   // 接口相关
+│  └─ web   // 页面相关
+├─ utils    // 基类函数
+├─ views    // 静态页面相关
+├─ app.js   // 启动入口
+├─ nginx.conf   // nginx配置
+├─ routers.js   // 路由配置
+└─ TICKET.json  // 全局的accesstoken等信息 持久化保存
 
 ```
 
 > 如果对您有帮助，请 Star 支持一下,你的赞赏更是我不竭的动力
 
-![赞赏一下呗](https://www.junxun365.com/upload/images/zfb_pay.jpg =100x100)
+<!-- ![赞赏一下呗](https://www.junxun365.com/upload/images/zfb_pay.jpg) -->
