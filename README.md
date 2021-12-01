@@ -1,4 +1,4 @@
-![logo](https://github.com/luoqiang0831/wechat-node-sdk/blob/main/public/favicon.png)
+<div align=center>![logo](https://github.com/luoqiang0831/wechat-node-sdk/blob/main/public/favicon.png)</div>
 
 # wxchat-node-sdk
 
@@ -9,7 +9,7 @@
 **源代码目录结构**
 **[地址](https://github.com/luoqiang0831/wechat-node-sdk)**
 
-<a href="https://luoqiang0831.github.io/wechat-node-sdk/">查看文档</a> <a href="https://abc.junxun365.com/">demo 演示</a>
+<a href="https://luoqiang0831.github.io/wechat-node-sdk/">查看文档</a> <a href="https://abc.junxun365.com/wx/">demo 演示</a>
 
 <!-- ![project.png](https://i.loli.net/2017/12/07/5a28ea5c3468d.png) -->
 
