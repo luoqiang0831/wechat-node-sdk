@@ -29,17 +29,25 @@ async function sendMsg(req, res) {
     `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${accessToken}`,
     {
       touser: openid, // 用户ID
-      template_id: 'EHK7HTQRpsWwaowHh33Bki0xGop4aKgjQB0FkMBhHn0', // 模板ID
+      template_id: 'RdOjUqZRkbAMC7Z9bEvtLap9jyxehLRcbgq2ygWmuXw', // 模板ID
       url: 'https://www.junxun365.com/', // 点击跳转URL地址
       // topcolor: '#e82665',
       data: {
-        name: {
+        keyword1: {
+          value: '驾照科目一考试成绩',
+          color: '#22b108' // 文字颜色
+        },
+        keyword2: {
           value: msg.name || '',
           color: '#22b108' // 文字颜色
         },
-        num: {
+        keyword3: {
           value: msg.num || 0,
           color: '#22b108' // 文字颜色
+        },
+        remark: {
+          value: '请于xx-xx 来我校补考。',
+          color: '#FA5151' // 文字颜色
         }
       }
     }
@@ -49,7 +57,7 @@ async function sendMsg(req, res) {
     } else {
       console.log(chalk.red('模板消息发送失败！'))
       console.log(errcode, errmsg)
-      res.send(resJson(errcode, result, errmsg))
+      res.send(resJson(errcode, null, errmsg))
     }
     res.end()
   })

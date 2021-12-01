@@ -5,10 +5,6 @@ export const APP_SECRET = '4ee889ac41b82d1552959c3e690eb12d' // 微信Secret
 // 获取基类accesstoken接口
 export const Wx_AccessToken_Api = 'https://api.weixin.qq.com/cgi-bin/token'
 
-/** 正式环境 */
-// export const APP_ID = 'wx42d2161d95528fdf' // 微信appid
-// export const APP_SECRET = 'c6e600413b4b3b01bddc3f84c6b172ad' // 微信Secret
-
 // 商户ID
 export const MCH_ID = 'xxxxxxx'
 // 商户支付秘钥( 微信商户平台-->账户设置-->API安全-->密钥设置)

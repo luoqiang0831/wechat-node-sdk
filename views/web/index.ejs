@@ -87,7 +87,7 @@
       },
         function (res) {
           //这个步骤非常重要，调试期间会报上相应的错误信息，因为微信调试工具是无法实际支付的，并且微信上是无法调试的，只能在这里alert
-          alert(res.err_msg);
+          // alert(res.err_msg);
           if (res.err_msg == "get_brand_wcpay_request:ok") {
             $("#transNo").text(`${package}/${transNo}`)
             //购买成功之后需要做的事...
@@ -144,8 +144,26 @@
             timestamp: data.timestamp, // 必填，生成签名的时间戳
             nonceStr: data.nonceStr, // 必填，生成签名的随机串
             signature: data.signature,// 必填，签名
-            jsApiList: ["chooseImage"] // 必填，需要使用的JS接口列表
+            jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline'] // 必填，需要使用的JS接口列表
           });
+
+          const shearInfo = {
+            title: '微信调试页', // 分享标题
+            desc: '一个微信api调试页面', // 分享描述
+            link: location.href, // 分享链接
+            imgUrl: 'http://abc.junxun365.com/public/favicon.png', // 分享图标
+            type: 'link', // 分享类型,music、video或link，不填默认为link
+            success: function () {
+              // 用户确认分享后执行的回调函数 (已无法使用)
+            },
+            cancel: function () {
+              // 用户取消分享后执行的回调函数 (已无法使用)
+            }
+          }
+          //分享给朋友
+          wx.onMenuShareAppMessage(shearInfo);
+          // 分享朋友圈
+          wx.onMenuShareTimeline(shearInfo);
         }
       })
 
