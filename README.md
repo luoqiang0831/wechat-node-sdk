@@ -1,4 +1,4 @@
-<div align=center>![logo](https://github.com/luoqiang0831/wechat-node-sdk/blob/main/public/favicon.png)
+![logo](https://github.com/luoqiang0831/wechat-node-sdk/blob/main/public/favicon.png)
 
 # wxchat-node-sdk
 
