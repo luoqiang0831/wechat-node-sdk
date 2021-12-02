@@ -6,6 +6,7 @@ import {
 } from '../../../utils/constants.js'
 import { get } from '../../../utils/fetch.js'
 import { resJson } from '../../../utils/response.js'
+import { getGlobalAccessToken } from '../wx_global/tools.js'
 import conn from '../../../config/dbs.js'
 import chalk from 'chalk'
 // const mongoose = require('mongoose')
@@ -100,6 +101,34 @@ async function getRemoteUserInfo(accessToken, openid, lang = 'zh_CN') {
     })
   })
 }
+
+/**
+ * 根据openid 获取用户相关信息包含(unionid)
+ * @param {*} accessToken
+ * @param {*} openid
+ * @param {*} lang
+ * @returns
+ */
+async function queryUserInfo(openid, lang = 'zh_CN') {
+  return new Promise(async (resolve, reject) => {
+    const access_token = await getGlobalAccessToken() // 全局的accesstoken
+    if (!access_token)
+      reject({ errmsg: '拉取用户信息时 accessToken获取失败！' })
+    if (!openid) reject({ errmsg: '拉取用户信息时 openid不能为空' })
+    get(
+      `https://api.weixin.qq.com/cgi-bin/user/info?access_token=${access_token}&openid=${openid}&lang=${lang}`
+    ).then((res) => {
+      if (res.errcode && res.errcode !== 0) {
+        reject(res)
+      } else {
+        console.log('成功获取: ')
+        console.log(res)
+        resolve(res)
+      }
+    })
+  })
+}
+
 /**
  * 静默授权 获取openid
  * @param {*} req
@@ -125,6 +154,28 @@ async function getOpenid(req, res) {
       res.end()
     }
   )
+}
+
+/**
+ * 获取UnionId
+ * @param {*} req
+ * @param {*} res
+ */
+async function getUnionId(req, res) {
+  const { openid } = req.body
+  if (!openid) {
+    res.send({ errmsg: 'openid 不能为空！' })
+    res.end()
+  }
+  const result = await queryUserInfo(openid).catch(({ errmsg }) => {
+    res.send(resJson(999, null, errmsg || '获取unionId 错误！'))
+    res.end()
+  })
+
+  if (result) {
+    res.send(resJson(0, result, ''))
+    res.end()
+  }
 }
 
 /**
@@ -155,6 +206,10 @@ async function getUserInfo(req, res) {
 
 app.get('/getOpenId', function (req, res) {
   getOpenid(req, res)
+})
+
+app.post('/getUnionId', function (req, res) {
+  getUnionId(req, res)
 })
 
 app.get('/getUserInfo', function (req, res) {
