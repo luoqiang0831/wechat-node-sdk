@@ -15,9 +15,9 @@
 
 ## 官方文档 & Demo 演示
 
-> **文档**：[https://luoqiang0831.github.io/wechat-node-sdk/](查看文档)
+> **文档**：[查看文档](https://luoqiang0831.github.io/wechat-node-sdk/)
 
-> **演示**：[https://abc.junxun365.com/wx/](demo 地址)
+> **演示**：[demo 地址](https://abc.junxun365.com/wx/)
 
 <br />
 
