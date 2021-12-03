@@ -1,5 +1,3 @@
-![logo]()
-
 <div align="center">
   <img src="https://github.com/luoqiang0831/wechat-node-sdk/blob/main/public/favicon.png" width="128" alt="logo" />
   <h1>wxchat-node-sdk</h1>
