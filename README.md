@@ -9,7 +9,7 @@
       <img src="https://img.shields.io/github/stars/buuing/lucky-canvas?color=%23ffba15&logo=github&style=flat-square" alt="stars" />
     </a>
     <a href="https://github.com/luoqiang0831" target="_black">
-      <img src="https://img.shields.io/badge/Author-%20buuing%20-7289da.svg?&logo=github&style=flat-square" alt="author" />
+      <img src="https://img.shields.io/github/stars/luoqiang0831/wechat-node-sdk?color=%23ffba15&logo=github&style=flat-square" alt="author" />
     </a>
   </p>
 </div>
