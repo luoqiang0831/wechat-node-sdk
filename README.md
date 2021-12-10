@@ -1,17 +1,25 @@
-![logo](https://github.com/luoqiang0831/wechat-node-sdk/blob/main/public/favicon.png)
+<div align="center">
+  <img src="https://github.com/luoqiang0831/wechat-node-sdk/blob/main/public/favicon.png" width="128" alt="logo" />
+  <h1>wxchat-node-sdk</h1>
+  <p>基于 Node+Express 对接微信相关 API 接口 实现微信支付、微信推送、签名及回调通知等接口.</p>
+  <!-- <p>
+    <a href="https://github.com/luoqiang0831/wechat-node-sdk/stargazers" target="_black">
+      <img src="https://img.shields.io/github/stars/luoqiang0831/wechat-node-sdk?color=%23ffba15&logo=github&style=flat-square" alt="stars" />
+    </a>
+    <a href="https://github.com/luoqiang0831" target="_black">
+      <img src="https://img.shields.io/badge/Author-%20luoqiang0831%20-7289da.svg?&logo=github&style=flat-square" alt="author" />
+    </a>
+  </p> -->
+</div>
+<br />
 
-# wxchat-node-sdk
+## 官方文档 & Demo 演示
 
-**微信 node-sdk**
+> **文档**：[查看文档](https://luoqiang0831.github.io/wechat-node-sdk/)
 
-> 基于 Node+Express 对接微信相关 API 接口 实现微信支付、微信推送、签名及回调通知等接口.
+> **演示**：[demo 地址](https://abc.junxun365.com/wx/)
 
-**源代码目录结构**
-**[地址](https://github.com/luoqiang0831/wechat-node-sdk)**
-
-<a href="https://luoqiang0831.github.io/wechat-node-sdk/">查看文档</a> <a href="https://abc.junxun365.com/wx/">demo 演示</a>
-
-<!-- ![project.png](https://i.loli.net/2017/12/07/5a28ea5c3468d.png) -->
+<br />
 
 ### 环境要求
 
@@ -49,6 +57,6 @@ $ npm run dev
 
 ```
 
-> 如果对您有帮助，请 Star 支持一下,你的赞赏更是我不竭的动力
+## 🙏🙏🙏 点个 Star
 
-<!-- ![赞赏一下呗](https://www.junxun365.com/upload/images/zfb_pay.jpg) -->
+**如果对您有帮助, 可以在 [Github](https://github.com/luoqiang0831/wechat-node-sdk) 上面帮我点个`star`, 支持一下作者,你的支持更是我不竭的动力**

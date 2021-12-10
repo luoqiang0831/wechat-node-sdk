@@ -30,21 +30,25 @@
           <p class="card-text" id="userInfo">
             openid:<span id="openid"></span>
           </p>
+          <p class="card-text">
+            unionid:<span id="unionid"></span>
+          </p>
           <p class="card-text" id="transNo">
             微信订单/自定义订单:<span id="openid"></span>
           </p>
+
         </div>
       </div>
       <div class="alert alert-primary" role="alert">
         <h3>获取用户信息相关</h3><br>
         <button type="button" class="btn btn-primary" id="getOpenid1">获取openid(静默授权)</button>
-        <button type="button" class="btn btn-secondary" id="getOpenid2">获取openid(确认授权)</button>
-        <button type="button" class="btn btn-success">Success</button>
-        <button type="button" class="btn btn-danger">Danger</button>
+        <button type="button" class="btn btn-danger" id="getOpenid2">获取openid(确认授权)</button>
+        <button type="button" class="btn btn-success" id="queryInfo">获取unionid</button>
+        <!-- <button type="button" class="btn btn-secondaryr">Danger</button>
         <button type="button" class="btn btn-warning">Warning</button>
         <button type="button" class="btn btn-info">Info</button>
         <button type="button" class="btn btn-light">Light</button>
-        <button type="button" class="btn btn-dark">Dark</button>
+        <button type="button" class="btn btn-dark">Dark</button> -->
       </div>
       <div class="alert alert-primary" role="alert">
         <h3>微信支付相关</h3><br>
@@ -169,7 +173,7 @@
 
       var code = getQueryVariable("code");
       var openid = getCookie("openid");
-      var mode = getCookie("state");
+      var mode = getQueryVariable("state");
       var href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx92f2087d83e61374&redirect_uri=" +
         encodeURIComponent(location.origin + location.pathname) +
         "&response_type=code&scope=${mode}&state=${mode}#wechat_redirect"
@@ -202,6 +206,38 @@
       $("#getOpenid2").on("click", function () {
         if (mode !== 'snsapi_userinfo') window.location.href = href.replaceAll('${mode}', 'snsapi_userinfo')
         getOpenidFn("/wx/user/getUserInfo?code=" + code || 'akfalksdjflaksdjf')
+      })
+
+      // 获取Unionid
+      $("#queryInfo").on("click", function () {
+        // 【情况1】若当前小程序未关联微信开放平台，则没有unionId
+        // 解决方案：登录 微信开放平台，绑定小程序。
+        // 【情况2】已经关联微信开放平台的小程序，但
+        // (1)即没有关注过公众号，
+        // (2)也没有登录过公众号，
+        // (3)更没有使用微信登录的方式登录过app
+        // 则此时，微信接口服务端获取不到unionId
+        if (!openid) {
+          alert("请先获取openid")
+          return
+        }
+        $.ajax({
+          url: '/wx/user/getUnionId',
+          method: "POST",
+          contentType: 'application/json',
+          data: JSON.stringify({
+            openid: openid,
+          }),
+          success(result) {
+            var data = result.data
+            if (result.errcode === 0) {
+              $("#unionid").val(data.unionid)
+            } else {
+              console.log(data.errmsg)
+            }
+
+          }
+        })
       })
 
       // 唤起支付
