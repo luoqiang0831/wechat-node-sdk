@@ -17,7 +17,8 @@
 
 > **文档**：[查看文档](https://luoqiang0831.github.io/wechat-node-sdk/)
 
-> **演示**：[demo 地址](https://abc.junxun365.com/wx/) ><br/> <img src="https://www.junxun365.com/upload/images/qrcode.png" width="128" alt="logo" />
+> **演示**：[demo 地址](https://abc.junxun365.com/wx/) 可用微信扫下方二维码查看
+> <br/> <img src="https://www.junxun365.com/upload/images/qrcode.png" width="128" alt="logo" />
 
 <br />
 
