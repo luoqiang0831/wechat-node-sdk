@@ -1,5 +1,10 @@
 import moment from 'moment'
-import { APP_ID, APP_SECRET, TICKET_PATH } from '../../../utils/constants.js'
+import {
+  APP_ID,
+  APP_SECRET,
+  TICKET_PATH,
+  Wx_AccessToken_Api
+} from '../../../utils/constants.js'
 import { get, post } from '../../../utils/fetch.js'
 import fs from 'fs'
 import chalk from 'chalk'
@@ -11,7 +16,7 @@ import chalk from 'chalk'
 export const getAccessToken = function () {
   return new Promise((reslove, reject) => {
     get(
-      `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
+      `${Wx_AccessToken_Api}?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
     )
       .then((result) => {
         let token = result.access_token
