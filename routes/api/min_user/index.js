@@ -1,12 +1,6 @@
 import express from 'express'
 import xmlreader from 'xmlreader'
 import { resJson } from '../../../utils/response.js'
-import {
-  APP_ID,
-  APP_SECRET,
-  Wx_User_AccessToken_Api
-} from '../../../utils/constants.js'
-import { get, post } from '../../../utils/fetch.js'
 import conn from '../../../config/dbs.js'
 import { payRequest, queryOrder } from './payTools.js'
 import chalk from 'chalk'
