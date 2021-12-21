@@ -2,6 +2,8 @@ import moment from 'moment'
 import {
   APP_ID,
   APP_SECRET,
+  MIN_APP_ID,
+  MIN_APP_SECRET,
   TICKET_PATH,
   Wx_AccessToken_Api
 } from '../../../utils/constants.js'
@@ -10,10 +12,10 @@ import fs from 'fs'
 import chalk from 'chalk'
 
 /**
- * 获取全局accessToken
+ * 获取全局accessToken 微信和小程序
  * @returns
  */
-export const getAccessToken = function () {
+export const getAccessToken = function (APP_ID, APP_SECRET) {
   return new Promise((reslove, reject) => {
     get(
       `${Wx_AccessToken_Api}?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
@@ -68,15 +70,33 @@ export const getJsapiTicket = function (token) {
  * @returns
  */
 export const pullGlobalTicketAndToken = async () => {
-  const { access_token } = await getAccessToken()
+  // 获取jssdk
+  const web_access_token;
+  if (APP_ID && APP_SECRET) {
+    web_access_token = await getAccessToken(APP_ID, APP_SECRET).catch((err) => {
+      console.log("获取web端asscess_token 失败")
+      console.log(err)
+    })
+  }
+
+  // 获取小程序
+  const min_access_token;
+  if (MIN_APP_ID && MIN_APP_SECRET) {
+    min_access_token = await getAccessToken(MIN_APP_ID, MIN_APP_SECRET).catch((err) => {
+      console.log("获取小程序asscess_token 失败")
+      console.log(err)
+    })
+  }
+ 
   return new Promise(async (reslove, reject) => {
-    if (access_token) {
+    if (web_access_token || min_access_token) {
       const { ticket, errcode, errmsg } = await getJsapiTicket(access_token)
       if (errcode === 0) {
         // 存储当前 ticket
         const ticketData = {
           jsapi_ticket: ticket,
-          access_token: access_token,
+          access_token: web_access_token?web_access_token.access_token:'', // web 
+          min_access_token: min_access_token?min_access_token.access_token:'',// 小程序
           dead_time: Date.now() + 1000 * 60 * 60 * 1 //失效时间 默认加了一个小时
         }
 

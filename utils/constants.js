@@ -2,6 +2,11 @@ import path from 'path'
 /** 测试公众号 */
 export const APP_ID = 'wx92f2087d83e61374' // 微信appid
 export const APP_SECRET = '4ee889ac41b82d1552959c3e690eb12d' // 微信Secret
+
+/** 测试小程序 */
+export const MIN_APP_ID = 'xxxxxxxxxxxx' // 小程序appid
+export const MIN_APP_SECRET = 'xxxxxxxxxxxxxxxxxxx' // 小程序Secret
+
 // 获取基类accesstoken接口
 export const Wx_AccessToken_Api = 'https://api.weixin.qq.com/cgi-bin/token'
 
@@ -17,3 +22,5 @@ export const Wx_User_AccessToken_Api =
 export const GLOBAL_COUSTOM_TOKEN = 'o2ANa5msjshLPDCTGJw4RyEPiGMI'
 // Ticket存放路径
 export const TICKET_PATH = path.join('./TICKET.json')
+//
+www.junxun365.com.w.kunlunar.com
